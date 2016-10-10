@@ -1,0 +1,61 @@
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  .row.content {height: 1500px;}
+
+  .sidenav {
+  	background-color: #f1f1f1;
+  	height: 100%;
+  }
+
+
+</style>
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+      <h1>Welcome to the Secret App</h1>
+
+    </div>
+  
+
+
+
+
+<div class="col-sm-9">
+  <h2>REGISTER HERE...</h2>
+  <hr>
+<form action="/users" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <p>
+  	<label for="email"><span class="glyphicon glyphicon-envelope"></span> Email</label>
+  	<input id="email" type="email" name="user[email]" placeholder="Enter email">
+  </p>
+  <p>
+  	<label for="name"><span class="glyphicon glyphicon-user"></span> Name</label>
+  	<input id="name" type="text" name="user[name]" placeholder="Enter name">
+  </p>
+  <p>
+  	<label for="password">Password</label>
+  	<input id="password" type="password" name="user[password]" placeholder="Enter password">
+  </p>
+  <p>
+  	<label for="password_confirmation">Password Confirmation</label>
+  	<input id="password_confirmation" type="password" name="user[password_confirmation]" placeholder="Enter password">
+  </p>
+  <button type="submit">Join</button>
+  </form>
+  <p>
+  	<a href="/sessions/new">Already a member?</a>
+  </p>
+  <img src="img_0818.jpg" alt="" width="200" height="200">
+  </div>
+
+</body>
+

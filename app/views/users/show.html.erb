@@ -1,0 +1,106 @@
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+
+
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row conten">
+   <div class="col-sm-3 sidenav">
+     <h1>Welcome <%= @user.name %>!</h1>
+     <ul class="nav nav-pills nav-stacked">
+        <li><form action='/sessions/new' method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name="_method" value="delete">
+    <button type="submit">Log Out</button></li>
+        
+      </ul></form><br>
+      
+    </div>
+
+<div class="col-sm-9">
+	<h4><a  href="/users/<%= @user.id %>/edit" >Edit Profile</a></h4>
+
+
+
+  <form action="/secrets" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <p>
+      <label for="new_secret">New Secret</label>
+      <textarea id="new_secret" name="secret[content]"></textarea>
+    </p>
+    <input type="submit" value="Create Secret">
+  </form>
+<hr>
+
+<!-- <div>
+  <h3>Secrets</h3>
+  <% @secrets.each do |secret| %>
+    <p><%= secret.content %></p>
+    
+    <form action="/secrets/<%= secret.id %>" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="Delete">
+    </form>
+
+  <hr>
+  <% end %>
+</div> -->
+
+  <h4>Secrets like</h4>
+  <div class="row">
+    <div class="col-sm-10">
+<% @secrets.each do |secret| %>
+  <p><%= secret.content %></p>
+  	
+  
+  <p><%= secret.likes.count %> Likes</p>
+
+   <% if secret.users_liked.include?(current_user) %>
+    <form action='/likes/<%= secret.find_like_id current_user%>' method='post'>
+      <input type='hidden' name='_method' value='delete'>
+      <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+      <input type='submit' value='Unlike'>
+    </form>
+  <% else %> 
+    <form action='/likes' method='post'>
+      <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+      <input type='hidden' name='secret_id' value='<%= secret.id %>'>
+      <input type='submit' value='Like'>
+    </form>
+  <% end %>
+
+
+  
+  <p></p>
+  <% if secret.user_id == @user.id %>
+   <form action="/secrets/<%= secret.id %>" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="Delete">
+    </form>
+    <% else %>
+    <form action="/secrets" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="secret.id" value="<%= secret.id %>">
+      </form>
+      <% end %>
+     
+	  
+<hr>
+  <% end %>
+	  </div>
+    </div>
+
+  </div>
+  </body>
+
